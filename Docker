@@ -1,0 +1,20 @@
+# 1. Use official Node.js runtime as a base image
+FROM node:18
+
+# 2. Set the working directory inside the container
+WORKDIR /app
+
+# 3. Copy package.json and package-lock.json before running npm install
+COPY package*.json ./
+
+# 4. Install dependencies (only production dependencies)
+RUN npm install --only=production
+
+# 5. Copy the entire project to the container
+COPY . .
+
+# 6. Expose the port your Node.js app runs on (update as needed)
+EXPOSE 3000
+
+# 7. Start the application
+CMD ["node", "server.js"]
